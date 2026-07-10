@@ -95,6 +95,12 @@ speed_sense_settings_t speed_sense = {
 // loses the wire (off-track).
 float last_direction = 0.0;
 
+// latest internal values, kept so the debug view (toggleAnalogPlot) can show
+// what the controllers are doing. Very handy for tuning and for finding bugs.
+float last_speed    = 0.0;   // measured speed (pulses per second)
+int   last_pwm      = 0;     // motor PWM the speed controller commanded
+bool  last_on_track = false; // does the car currently see the wire?
+
 void setup() {
   setup_uart();
 
@@ -144,17 +150,19 @@ void loop() {
   if (millis() - last_control >= CONTROL_PERIOD_MS) {
     last_control += CONTROL_PERIOD_MS;
 
-    // read both line sensors (also needed for the plot / for tuning)
+    // read both line sensors (also needed for the debug view / for tuning)
     sensor_read(left_sensor);
     sensor_read(right_sensor);
 
+    // update the values we want to watch (also in test mode: e.g. check the
+    // speed sensor by spinning the wheels with setMotorSpeed and reading Speed)
+    last_speed = read_speed();
+    last_on_track = (left_sensor.value  > settings.off_track_detection) ||
+                    (right_sensor.value > settings.off_track_detection);
+
     if (settings.drive_enabled) {
       // ============================ LENKUNG ============================
-      // on the wire as long as at least one sensor sees a signal
-      bool on_track = (left_sensor.value  > settings.off_track_detection) ||
-                      (right_sensor.value > settings.off_track_detection);
-
-      if (on_track) {
+      if (last_on_track) {
         // difference of the two coils; setpoint 0 = wire centered under the car.
         // (left - right): a positive controller output steers toward the side
         // with the stronger signal. Flip STEER_SIGN in config.h if reversed.
@@ -169,9 +177,9 @@ void loop() {
       servo_set_position(servo, (int)direction);
 
       // ========================= GESCHWINDIGKEIT ======================
-      float measured_speed = read_speed();
-      float pwm = pid(speed_control, (float)settings.idle_speed, measured_speed);
+      float pwm = pid(speed_control, (float)settings.idle_speed, last_speed);
       pwm = constrain(pwm, 0, MOTOR_MAX_SPEED);
+      last_pwm = (int)pwm;
       motor_set_speed(motor, (unsigned int)pwm);
 
     } else {
@@ -179,24 +187,26 @@ void loop() {
       // Do NOT touch servo & motor here, so the serial commands
       // setServoPos.. / setMotorSpeed.. work for calibration.
       // Keep the controllers reset so autonomous driving starts clean.
+      last_pwm = 0;
       reset_integrator(direction_control);
       reset_integrator(speed_control);
     }
   }
 
-  if (settings.plot_analog_readings) {
-    Serial.print("Left_avg:");
-    Serial.print(left_sensor.value);
-    Serial.print(",Right_avg:");
-    Serial.print(right_sensor.value);
-    Serial.print(",Left:");
-    Serial.print(analogRead(left_sensor.pin));
-    Serial.print(",Right:");
-    Serial.print(analogRead(right_sensor.pin));
-    Serial.print(",Controller:");
-    Serial.print(direction);
-    Serial.println("");
-    delay(50);
+  // ---- debug view: stream the important values (toggleAnalogPlot to turn on) ----
+  // The "name:value,name:value" format is readable in the Serial Monitor (text)
+  // AND draws live graphs in the Serial Plotter. Throttled with millis() so it
+  // does NOT slow down the control loop.
+  static unsigned long last_plot = 0;
+  if (settings.plot_analog_readings && (millis() - last_plot >= 50)) {
+    last_plot = millis();
+    Serial.print("Left:");      Serial.print(left_sensor.value);
+    Serial.print(",Right:");    Serial.print(right_sensor.value);
+    Serial.print(",OnTrack:");  Serial.print(last_on_track ? 100 : 0);
+    Serial.print(",Steer:");    Serial.print(direction);
+    Serial.print(",Speed:");    Serial.print(last_speed);
+    Serial.print(",Target:");   Serial.print(settings.idle_speed);
+    Serial.print(",MotorPWM:"); Serial.println(last_pwm);
   }
 
   handle_serial_input();
