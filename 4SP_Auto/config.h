@@ -41,8 +41,8 @@
 // ===========================================================================
 //  3) ANTRIEBSMOTOR  -  PWM-Tastgrad 0..255 (0 = aus)
 // ===========================================================================
-#define MOTOR_MIN_SPEED      40     // ab diesem PWM-Wert dreht der Motor (Anfahren)
-#define MOTOR_MAX_SPEED      180    // obere Begrenzung (Sicherheit / max. Tempo)
+#define MOTOR_MIN_SPEED      10     // ab diesem PWM-Wert dreht der Motor (Anfahren)
+#define MOTOR_MAX_SPEED      40    // obere Begrenzung (Sicherheit / max. Tempo)
 
 // ===========================================================================
 //  4) LENK-REGLER (PID)  -  haelt das Auto ueber dem Leiter/Draht
@@ -64,17 +64,17 @@
 //  5) GESCHWINDIGKEITS-REGLER (PID)  -  haelt konstante Geschwindigkeit
 //     Stellgroesse = Motor-PWM 0..255
 // ===========================================================================
-#define SPEED_KP             0.3
-#define SPEED_KI             0.125
-#define SPEED_KD             0.4
-#define SPEED_ANTIWINDUP     255.0  // Integrator bis max. PWM
+#define SPEED_KP             0.15
+#define SPEED_KI             0.0625
+#define SPEED_KD             0.2
+#define SPEED_ANTIWINDUP     40  // Integrator bis max. PWM
 
 // ===========================================================================
 //  6) SYSTEM / FAHRVERHALTEN
 // ===========================================================================
 //  Sollgeschwindigkeit fuer den Speed-Regler, Einheit: Impulse/Sekunde
 //  (= Umdrehungen/s, siehe SPEED_PULSE_SCALE). Klein anfangen, dann erhoehen.
-#define TARGET_SPEED         120
+#define TARGET_SPEED         40
 //  Schwelle "vom Kurs abgekommen": liegen BEIDE Sensorwerte darunter, sieht das
 //  Auto den Leiter nicht mehr und haelt die zuletzt gefahrene Lenkrichtung.
 #define OFF_TRACK_THRESHOLD  60
