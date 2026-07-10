@@ -54,6 +54,11 @@
 #define STEER_ANTIWINDUP     150.0  // Begrenzung des Integrators
 //  Vorzeichen der Lenkung. Lenkt das Auto in die FALSCHE Richtung: auf -1 setzen.
 #define STEER_SIGN           (+1)
+//  Mittelpunkt-Abgleich: der Diff-Wert (Left-Right), den die Sensoren zeigen,
+//  wenn der Draht GENAU mittig unter dem Auto liegt. Im Serial Monitor ablesen
+//  und hier eintragen. Der Lenkregler nimmt diesen Wert als "geradeaus".
+//  (Gemessen: Left~362 / Right~378 -> Diff ~ -15)
+#define STEER_CENTER_OFFSET  (-15)
 
 // ===========================================================================
 //  5) GESCHWINDIGKEITS-REGLER (PID)  -  haelt konstante Geschwindigkeit

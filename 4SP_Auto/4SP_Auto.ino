@@ -167,7 +167,8 @@ void loop() {
         // (left - right): a positive controller output steers toward the side
         // with the stronger signal. Flip STEER_SIGN in config.h if reversed.
         float measured = (float)left_sensor.value - (float)right_sensor.value;
-        direction = STEER_SIGN * pid(direction_control, 0.0, measured);
+        // setpoint = STEER_CENTER_OFFSET so that "wire centered" counts as straight
+        direction = STEER_SIGN * pid(direction_control, (float)STEER_CENTER_OFFSET, measured);
         direction = constrain(direction, -100, 100);
         last_direction = direction;
       } else {
@@ -206,6 +207,7 @@ void loop() {
     Serial.print("Left:");      Serial.print(left_sensor.value);
     Serial.print("\tRight:");   Serial.print(right_sensor.value);
     Serial.print("\tDiff:");    Serial.print(diff);
+    Serial.print("\tErr:");     Serial.print(diff - (STEER_CENTER_OFFSET));  // ~0 when centered
     Serial.print("\tOnTrack:"); Serial.println(last_on_track ? 1 : 0);
   }
 
