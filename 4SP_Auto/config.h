@@ -34,22 +34,22 @@
 //  "setServoPos0;" (Mitte), "setServoPos100;" (rechts) senden und die drei
 //  Werte hier so einstellen, dass die Raeder genau ganz links / mittig / ganz
 //  rechts stehen. (Manueller Modus, siehe README.)
-#define SERVO_FULL_LEFT      800   // Vollausschlag links
+#define SERVO_FULL_LEFT      400   // Vollausschlag links
 #define SERVO_CENTER         1600   // Geradeaus
-#define SERVO_FULL_RIGHT     2400   // Vollausschlag rechts
+#define SERVO_FULL_RIGHT     2800   // Vollausschlag rechts
 
 // ===========================================================================
 //  3) ANTRIEBSMOTOR  -  PWM-Tastgrad 0..255 (0 = aus)
 // ===========================================================================
-#define MOTOR_MIN_SPEED      10     // ab diesem PWM-Wert dreht der Motor (Anfahren)
+#define MOTOR_MIN_SPEED      5     // ab diesem PWM-Wert dreht der Motor (Anfahren)
 #define MOTOR_MAX_SPEED      40    // obere Begrenzung (Sicherheit / max. Tempo)
 
 // ===========================================================================
 //  4) LENK-REGLER (PID)  -  haelt das Auto ueber dem Leiter/Draht
 //     Stellgroesse = Lenkbefehl -100 (ganz links) .. +100 (ganz rechts)
 // ===========================================================================
-#define STEER_KP             1   // P-Anteil: staerker = schnelleres Lenken
-#define STEER_KI             0.05    // I-Anteil: gegen bleibenden Versatz (meist 0)
+#define STEER_KP             0.6   // P-Anteil: staerker = schnelleres Lenken
+#define STEER_KI             0    // I-Anteil: gegen bleibenden Versatz (meist 0)
 #define STEER_KD             0.15   // D-Anteil: daempft/beruhigt das Lenken
 #define STEER_ANTIWINDUP     150.0  // Begrenzung des Integrators
 //  Vorzeichen der Lenkung. Lenkt das Auto in die FALSCHE Richtung: auf -1 setzen.
@@ -67,14 +67,14 @@
 #define SPEED_KP             0.3
 #define SPEED_KI             0.125
 #define SPEED_KD             0.2
-#define SPEED_ANTIWINDUP     40  // Integrator bis max. PWM
+#define SPEED_ANTIWINDUP     60  // Integrator bis max. PWM
 
 // ===========================================================================
 //  6) SYSTEM / FAHRVERHALTEN
 // ===========================================================================
 //  Sollgeschwindigkeit fuer den Speed-Regler, Einheit: Impulse/Sekunde
 //  (= Umdrehungen/s, siehe SPEED_PULSE_SCALE). Klein anfangen, dann erhoehen.
-#define TARGET_SPEED         80
+#define TARGET_SPEED         95
 //  Schwelle "vom Kurs abgekommen": liegen BEIDE Sensorwerte darunter, sieht das
 //  Auto den Leiter nicht mehr und haelt die zuletzt gefahrene Lenkrichtung.
 #define OFF_TRACK_THRESHOLD  60
