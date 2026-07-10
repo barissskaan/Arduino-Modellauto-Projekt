@@ -43,6 +43,22 @@ void set_servo_pos(double in){
     servo_set_position(*uart.servo, int(in));
 }
 
+// Live-adjust the servo center (straight-ahead), value in MICROSECONDS.
+// Dial it until the wheels point dead straight, then copy that value into
+// SERVO_CENTER in config.h. Tip: send stopDrive first so the controller does
+// not fight your adjustment.
+void set_servo_center(double in){
+  Serial.print("Servo center (us) = ");
+  Serial.println(int(in));
+  Serial.flush();
+  if (uart.servo == nullptr) {
+    Serial.println("Servo not attached!");
+    return;
+  }
+  uart.servo->center = (unsigned int)in;
+  servo_set_position(*uart.servo, 0);   // move to the new center right now
+}
+
 // Start autonomous driving (line following + speed control)
 void start_driving(double in){
   Serial.println("Autonomous driving: START");
@@ -74,6 +90,7 @@ void help(double in){
   Serial.println("");
   Serial.println("Available commands:");
   Serial.println("setServoPos: set the position of servo (-100..100), manual mode");
+  Serial.println("setServoCenter: live-set the straight-ahead servo center (us)");
   Serial.println("setMotorSpeed: set the motor speed (0..255), manual mode");
   Serial.println("toggleAnalogPlot: start and stop plot of analog readings");
   Serial.println("startDrive: start autonomous driving");
@@ -88,11 +105,11 @@ void help(double in){
 ///
 /// The following two arrays have to have the SAME number of elements each command corresponding to one function pointer
 
-const char *callback_name[] = {"setServoPos","setMotorSpeed","toggleAnalogPlot","startDrive","stopDrive","help"};
+const char *callback_name[] = {"setServoPos","setServoCenter","setMotorSpeed","toggleAnalogPlot","startDrive","stopDrive","help"};
 
 /// List of function pointer from above
 
-void (*callback_func[])(double in) = {set_servo_pos,set_motor_speed,toggle_analog_plot,start_driving,stop_driving,help};
+void (*callback_func[])(double in) = {set_servo_pos,set_servo_center,set_motor_speed,toggle_analog_plot,start_driving,stop_driving,help};
 
 
 
