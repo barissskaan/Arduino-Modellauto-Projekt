@@ -75,6 +75,11 @@
 //  Sollgeschwindigkeit fuer den Speed-Regler, Einheit: Impulse/Sekunde
 //  (= Umdrehungen/s, siehe SPEED_PULSE_SCALE). Klein anfangen, dann erhoehen.
 #define TARGET_SPEED         95
+//  Kurven-Verlangsamung: wie stark in Kurven gebremst wird (0..1).
+//  0   = nie bremsen (immer TARGET_SPEED)
+//  0.5 = bei vollem Lenkeinschlag nur noch halbe Geschwindigkeit
+//  Dazwischen linear mit dem Lenkeinschlag. Groesser = in Kurven langsamer.
+#define CURVE_SLOWDOWN       0.5
 //  Schwelle "vom Kurs abgekommen": liegen BEIDE Sensorwerte darunter, sieht das
 //  Auto den Leiter nicht mehr und haelt die zuletzt gefahrene Lenkrichtung.
 #define OFF_TRACK_THRESHOLD  60

@@ -178,7 +178,12 @@ void loop() {
       servo_set_position(servo, (int)direction);
 
       // ========================= GESCHWINDIGKEIT ======================
-      float pwm = pid(speed_control, (float)settings.idle_speed, last_speed);
+      // slow down in curves: the harder the car steers, the lower the target.
+      // steer_frac = 0 (straight) .. 1 (full lock); at full lock the target is
+      // reduced by CURVE_SLOWDOWN (e.g. 0.5 -> half speed).
+      float steer_frac = fabs(direction) / 100.0;
+      float target = (float)settings.idle_speed * (1.0 - CURVE_SLOWDOWN * steer_frac);
+      float pwm = pid(speed_control, target, last_speed);
       pwm = constrain(pwm, 0, MOTOR_MAX_SPEED);
       last_pwm = (int)pwm;
       motor_set_speed(motor, (unsigned int)pwm);
