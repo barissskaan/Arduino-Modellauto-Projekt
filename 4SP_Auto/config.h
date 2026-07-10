@@ -35,7 +35,7 @@
 //  Werte hier so einstellen, dass die Raeder genau ganz links / mittig / ganz
 //  rechts stehen. (Manueller Modus, siehe README.)
 #define SERVO_FULL_LEFT      1200   // Vollausschlag links
-#define SERVO_CENTER         1500   // Geradeaus
+#define SERVO_CENTER         1600   // Geradeaus
 #define SERVO_FULL_RIGHT     1800   // Vollausschlag rechts
 
 // ===========================================================================
@@ -74,7 +74,7 @@
 // ===========================================================================
 //  Sollgeschwindigkeit fuer den Speed-Regler, Einheit: Impulse/Sekunde
 //  (= Umdrehungen/s, siehe SPEED_PULSE_SCALE). Klein anfangen, dann erhoehen.
-#define TARGET_SPEED         40
+#define TARGET_SPEED         60
 //  Schwelle "vom Kurs abgekommen": liegen BEIDE Sensorwerte darunter, sieht das
 //  Auto den Leiter nicht mehr und haelt die zuletzt gefahrene Lenkrichtung.
 #define OFF_TRACK_THRESHOLD  60
