@@ -193,20 +193,20 @@ void loop() {
     }
   }
 
-  // ---- debug view: stream the important values (toggleAnalogPlot to turn on) ----
-  // The "name:value,name:value" format is readable in the Serial Monitor (text)
-  // AND draws live graphs in the Serial Plotter. Throttled with millis() so it
-  // does NOT slow down the control loop.
+  // ---- sensor readout for calibration + debug ----
+  // Streams "Left / Right / Diff / OnTrack" so you can read the sensor values
+  // in the Serial Monitor. Diff = Left - Right is exactly the steering error:
+  // with the wire centered under the car it should be close to 0.
+  // Prints ~5x per second (comfortable to read). On/off via PLOT_ANALOG in
+  // config.h or the toggleAnalogPlot command.
   static unsigned long last_plot = 0;
-  if (settings.plot_analog_readings && (millis() - last_plot >= 50)) {
+  if (settings.plot_analog_readings && (millis() - last_plot >= 200)) {
     last_plot = millis();
+    int diff = (int)left_sensor.value - (int)right_sensor.value;
     Serial.print("Left:");      Serial.print(left_sensor.value);
-    Serial.print(",Right:");    Serial.print(right_sensor.value);
-    Serial.print(",OnTrack:");  Serial.print(last_on_track ? 100 : 0);
-    Serial.print(",Steer:");    Serial.print(direction);
-    Serial.print(",Speed:");    Serial.print(last_speed);
-    Serial.print(",Target:");   Serial.print(settings.idle_speed);
-    Serial.print(",MotorPWM:"); Serial.println(last_pwm);
+    Serial.print("\tRight:");   Serial.print(right_sensor.value);
+    Serial.print("\tDiff:");    Serial.print(diff);
+    Serial.print("\tOnTrack:"); Serial.println(last_on_track ? 1 : 0);
   }
 
   handle_serial_input();

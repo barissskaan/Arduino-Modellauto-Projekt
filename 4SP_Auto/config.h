@@ -73,8 +73,9 @@
 //  Schwelle "vom Kurs abgekommen": liegen BEIDE Sensorwerte darunter, sieht das
 //  Auto den Leiter nicht mehr und haelt die zuletzt gefahrene Lenkrichtung.
 #define OFF_TRACK_THRESHOLD  60
-//  true = Analogwerte fuer den Serial Plotter ausgeben (zum Einstellen)
-#define PLOT_ANALOG          false
+//  true = Sensorwerte (Left/Right/Diff) staendig ausgeben - zum Einstellen /
+//  Kalibrieren im Serial Monitor. Fuers normale Fahren wieder auf false setzen.
+#define PLOT_ANALOG          true
 
 // ===========================================================================
 //  7) REGLER-TAKT & GESCHWINDIGKEITSMESSUNG
