@@ -95,6 +95,10 @@ speed_sense_settings_t speed_sense = {
 // loses the wire (off-track).
 float last_direction = 0.0;
 
+// which side the wire was last clearly on (-1 left / +1 right / 0 = centered).
+// used by the WIRE_RECOVER logic to ignore the difference when it flips far off.
+int committed_side = 0;
+
 // latest internal values, kept so the debug view (toggleAnalogPlot) can show
 // what the controllers are doing. Very handy for tuning and for finding bugs.
 float last_speed    = 0.0;   // measured speed (pulses per second)
@@ -167,6 +171,22 @@ void loop() {
         // (left - right): a positive controller output steers toward the side
         // with the stronger signal. Flip STEER_SIGN in config.h if reversed.
         float measured = (float)left_sensor.value - (float)right_sensor.value;
+
+#if WIRE_RECOVER
+        // Robust against the "difference flips sign far off the line" problem.
+        // e = deviation from center (0 = centered).
+        float e = measured - (float)STEER_CENTER_OFFSET;
+        if (fabs(e) < RECENTER_BAND) {
+          committed_side = 0;                          // safely on the line -> trust fully
+        } else if (committed_side == 0) {
+          committed_side = (e > 0) ? 1 : -1;           // just left the line -> remember the side
+        }
+        if (committed_side != 0 && ((e > 0) ? 1 : -1) != committed_side) {
+          // the difference flipped while we are still off the line -> it lies.
+          // keep steering toward the remembered side until we are centered again.
+          measured = (float)STEER_CENTER_OFFSET + (float)committed_side * (float)RECOVER_PUSH;
+        }
+#endif
         // setpoint = STEER_CENTER_OFFSET so that "wire centered" counts as straight
         direction = STEER_SIGN * pid(direction_control, (float)STEER_CENTER_OFFSET, measured);
         direction = constrain(direction, -100, 100);

@@ -59,6 +59,15 @@
 //  und hier eintragen. Der Lenkregler nimmt diesen Wert als "geradeaus".
 //  (Gemessen: Left~362 / Right~378 -> Diff ~ -15)
 #define STEER_CENTER_OFFSET  (-15)
+//  --- Draht-Wiederfinden / Center-Lock --------------------------------------
+//  Loest das Problem, dass die Differenz (Left-Right) weit ausserhalb der Linie
+//  ihr Vorzeichen kippt -> das Auto lenkt falsch herum und faehrt raus.
+//  Idee: solange das Auto NICHT sicher mittig ist (|Diff-OFFSET| >= RECENTER_BAND),
+//  merkt es sich die Seite. Kippt das Differenzsignal dann, wird es ignoriert und
+//  weiter in die gemerkte Richtung gelenkt, bis das Auto wieder mittig ist.
+#define WIRE_RECOVER         1      // 1 = an, 0 = aus (reine Differenz wie vorher)
+#define RECENTER_BAND        20     // Band um die Mitte, in dem "sicher auf Linie" gilt
+#define RECOVER_PUSH         200    // wie hart in die gemerkte Richtung gelenkt wird
 
 // ===========================================================================
 //  5) GESCHWINDIGKEITS-REGLER (PID)  -  haelt konstante Geschwindigkeit
