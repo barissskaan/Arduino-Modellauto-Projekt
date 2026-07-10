@@ -34,9 +34,9 @@
 //  "setServoPos0;" (Mitte), "setServoPos100;" (rechts) senden und die drei
 //  Werte hier so einstellen, dass die Raeder genau ganz links / mittig / ganz
 //  rechts stehen. (Manueller Modus, siehe README.)
-#define SERVO_FULL_LEFT      1200   // Vollausschlag links
+#define SERVO_FULL_LEFT      800   // Vollausschlag links
 #define SERVO_CENTER         1600   // Geradeaus
-#define SERVO_FULL_RIGHT     1800   // Vollausschlag rechts
+#define SERVO_FULL_RIGHT     2400   // Vollausschlag rechts
 
 // ===========================================================================
 //  3) ANTRIEBSMOTOR  -  PWM-Tastgrad 0..255 (0 = aus)
@@ -49,7 +49,7 @@
 //     Stellgroesse = Lenkbefehl -100 (ganz links) .. +100 (ganz rechts)
 // ===========================================================================
 #define STEER_KP             0.12   // P-Anteil: staerker = schnelleres Lenken
-#define STEER_KI             0.0    // I-Anteil: gegen bleibenden Versatz (meist 0)
+#define STEER_KI             0.05    // I-Anteil: gegen bleibenden Versatz (meist 0)
 #define STEER_KD             0.06   // D-Anteil: daempft/beruhigt das Lenken
 #define STEER_ANTIWINDUP     150.0  // Begrenzung des Integrators
 //  Vorzeichen der Lenkung. Lenkt das Auto in die FALSCHE Richtung: auf -1 setzen.
