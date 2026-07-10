@@ -195,7 +195,7 @@ void loop() {
   }
 
   // ---- sensor readout for calibration + debug ----
-  // Streams "Left / Right / Diff / OnTrack" so you can read the sensor values
+  // Streams "Left / Right / Diff / Err / MotorPWM / Speed / OnTrack" so you can read the values
   // in the Serial Monitor. Diff = Left - Right is exactly the steering error:
   // with the wire centered under the car it should be close to 0.
   // Prints ~5x per second (comfortable to read). On/off via PLOT_ANALOG in
@@ -208,6 +208,8 @@ void loop() {
     Serial.print("\tRight:");   Serial.print(right_sensor.value);
     Serial.print("\tDiff:");    Serial.print(diff);
     Serial.print("\tErr:");     Serial.print(diff - (STEER_CENTER_OFFSET));  // ~0 when centered
+    Serial.print("\tMotorPWM:"); Serial.print(last_pwm);          // commanded motor PWM (0..255)
+    Serial.print("\tSpeed:");    Serial.print(last_speed);         // measured speed (pulses/s)
     Serial.print("\tOnTrack:"); Serial.println(last_on_track ? 1 : 0);
   }
 
