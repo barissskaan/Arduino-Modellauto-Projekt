@@ -64,9 +64,9 @@
 //  5) GESCHWINDIGKEITS-REGLER (PID)  -  haelt konstante Geschwindigkeit
 //     Stellgroesse = Motor-PWM 0..255
 // ===========================================================================
-#define SPEED_KP             4.0
-#define SPEED_KI             0.8
-#define SPEED_KD             0.0
+#define SPEED_KP             0.3
+#define SPEED_KI             0.125
+#define SPEED_KD             0.4
 #define SPEED_ANTIWINDUP     255.0  // Integrator bis max. PWM
 
 // ===========================================================================
@@ -74,12 +74,11 @@
 // ===========================================================================
 //  Sollgeschwindigkeit fuer den Speed-Regler, Einheit: Impulse/Sekunde
 //  (= Umdrehungen/s, siehe SPEED_PULSE_SCALE). Klein anfangen, dann erhoehen.
-#define TARGET_SPEED         20
+#define TARGET_SPEED         120
 //  Schwelle "vom Kurs abgekommen": liegen BEIDE Sensorwerte darunter, sieht das
 //  Auto den Leiter nicht mehr und haelt die zuletzt gefahrene Lenkrichtung.
 #define OFF_TRACK_THRESHOLD  60
-//  true = Sensorwerte (Left/Right/Diff) staendig ausgeben - zum Einstellen /
-//  Kalibrieren im Serial Monitor. Fuers normale Fahren wieder auf false setzen.
+//  true = Analogwerte fuer den Serial Plotter ausgeben (zum Einstellen)
 #define PLOT_ANALOG          true
 
 // ===========================================================================

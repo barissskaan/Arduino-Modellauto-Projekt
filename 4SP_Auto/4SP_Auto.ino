@@ -82,7 +82,7 @@ system_settings_t settings = {
   .off_track_detection = OFF_TRACK_THRESHOLD,
   .idle_speed = TARGET_SPEED,
   .plot_analog_readings = PLOT_ANALOG,
-  .drive_enabled = false          // start in manual/test mode for safety
+  .drive_enabled = true          // start in manual/test mode for safety
 };
 
 speed_sense_settings_t speed_sense = {
