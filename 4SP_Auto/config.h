@@ -58,8 +58,7 @@
 //  wenn der Draht GENAU mittig unter dem Auto liegt. Im Serial Monitor ablesen
 //  und hier eintragen. Der Lenkregler nimmt diesen Wert als "geradeaus".
 //  (Gemessen: Left~362 / Right~378 -> Diff ~ -15)
-<<<<<<< HEAD
-#define STEER_CENTER_OFFSET  (-15)
+#define STEER_CENTER_OFFSET  (-15)   // <-- Team-Branch hatte hier -10; auf euren zuletzt gemessenen Mittelwert setzen
 //  --- Draht-Wiederfinden / Center-Lock --------------------------------------
 //  Loest das Problem, dass die Differenz (Left-Right) weit ausserhalb der Linie
 //  ihr Vorzeichen kippt -> das Auto lenkt falsch herum und faehrt raus.
@@ -69,9 +68,6 @@
 #define WIRE_RECOVER         1      // 1 = an, 0 = aus (reine Differenz wie vorher)
 #define RECENTER_BAND        20     // Band um die Mitte, in dem "sicher auf Linie" gilt
 #define RECOVER_PUSH         200    // wie hart in die gemerkte Richtung gelenkt wird
-=======
-#define STEER_CENTER_OFFSET  (-10)
->>>>>>> 25c91d866ada9f89672e8ae240ef0bb47444ffc0
 
 // ===========================================================================
 //  5) GESCHWINDIGKEITS-REGLER (PID)  -  haelt konstante Geschwindigkeit
