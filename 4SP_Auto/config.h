@@ -76,7 +76,7 @@
 #define SPEED_KP             0.3
 #define SPEED_KI             0.125
 #define SPEED_KD             0.2
-#define SPEED_ANTIWINDUP     60  // Integrator bis max. PWM
+#define SPEED_ANTIWINDUP     40  // Integrator bis max. PWM
 
 // ===========================================================================
 //  6) SYSTEM / FAHRVERHALTEN
@@ -88,7 +88,7 @@
 //  0   = nie bremsen (immer TARGET_SPEED)
 //  0.5 = bei vollem Lenkeinschlag nur noch halbe Geschwindigkeit
 //  Dazwischen linear mit dem Lenkeinschlag. Groesser = in Kurven langsamer.
-#define CURVE_SLOWDOWN       0.5
+#define CURVE_SLOWDOWN       0
 //  Schwelle "vom Kurs abgekommen": liegen BEIDE Sensorwerte darunter, sieht das
 //  Auto den Leiter nicht mehr und haelt die zuletzt gefahrene Lenkrichtung.
 #define OFF_TRACK_THRESHOLD  60
