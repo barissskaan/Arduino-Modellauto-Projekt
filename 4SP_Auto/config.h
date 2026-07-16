@@ -53,12 +53,12 @@
 #define STEER_KD             0.15   // D-Anteil: daempft/beruhigt das Lenken
 #define STEER_ANTIWINDUP     150.0  // Begrenzung des Integrators
 //  Vorzeichen der Lenkung. Lenkt das Auto in die FALSCHE Richtung: auf -1 setzen.
-#define STEER_SIGN           (+1)
+#define STEER_SIGN           (-1)
 //  Mittelpunkt-Abgleich: der Diff-Wert (Left-Right), den die Sensoren zeigen,
 //  wenn der Draht GENAU mittig unter dem Auto liegt. Im Serial Monitor ablesen
 //  und hier eintragen. Der Lenkregler nimmt diesen Wert als "geradeaus".
 //  (Gemessen: Left~362 / Right~378 -> Diff ~ -15)
-#define STEER_CENTER_OFFSET  (-15)   // <-- Team-Branch hatte hier -10; auf euren zuletzt gemessenen Mittelwert setzen
+#define STEER_CENTER_OFFSET  (-30)   // <-- Team-Branch hatte hier -10; auf euren zuletzt gemessenen Mittelwert setzen
 //  --- Draht-Wiederfinden / Center-Lock --------------------------------------
 //  Loest das Problem, dass die Differenz (Left-Right) weit ausserhalb der Linie
 //  ihr Vorzeichen kippt -> das Auto lenkt falsch herum und faehrt raus.
