@@ -48,7 +48,7 @@
 //  4) LENK-REGLER (PID)  -  haelt das Auto ueber dem Leiter/Draht
 //     Stellgroesse = Lenkbefehl -100 (ganz links) .. +100 (ganz rechts)
 // ===========================================================================
-#define STEER_KP             0.6   // P-Anteil: staerker = schnelleres Lenken
+#define STEER_KP             0.4   // P-Anteil: staerker = schnelleres Lenken
 #define STEER_KI             0    // I-Anteil: gegen bleibenden Versatz (meist 0)
 #define STEER_KD             0.15   // D-Anteil: daempft/beruhigt das Lenken
 #define STEER_ANTIWINDUP     150.0  // Begrenzung des Integrators
@@ -76,14 +76,14 @@
 #define SPEED_KP             0.3
 #define SPEED_KI             0.125
 #define SPEED_KD             0.2
-#define SPEED_ANTIWINDUP     40  // Integrator bis max. PWM
+#define SPEED_ANTIWINDUP     60  // Integrator bis max. PWM
 
 // ===========================================================================
 //  6) SYSTEM / FAHRVERHALTEN
 // ===========================================================================
 //  Sollgeschwindigkeit fuer den Speed-Regler, Einheit: Impulse/Sekunde
 //  (= Umdrehungen/s, siehe SPEED_PULSE_SCALE). Klein anfangen, dann erhoehen.
-#define TARGET_SPEED         95
+#define TARGET_SPEED         150
 //  Kurven-Verlangsamung: wie stark in Kurven gebremst wird (0..1).
 //  0   = nie bremsen (immer TARGET_SPEED)
 //  0.5 = bei vollem Lenkeinschlag nur noch halbe Geschwindigkeit
