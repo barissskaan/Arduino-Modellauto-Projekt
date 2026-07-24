@@ -34,9 +34,9 @@
 //  "setServoPos0;" (Mitte), "setServoPos100;" (rechts) senden und die drei
 //  Werte hier so einstellen, dass die Raeder genau ganz links / mittig / ganz
 //  rechts stehen. (Manueller Modus, siehe README.)
-#define SERVO_FULL_LEFT      250   // Vollausschlag links
+#define SERVO_FULL_LEFT      200   // Vollausschlag links
 #define SERVO_CENTER         1600   // Geradeaus
-#define SERVO_FULL_RIGHT     2950   // Vollausschlag rechts
+#define SERVO_FULL_RIGHT     3000   // Vollausschlag rechts
 
 // ===========================================================================
 //  3) ANTRIEBSMOTOR  -  PWM-Tastgrad 0..255 (0 = aus)
@@ -83,7 +83,7 @@
 // ===========================================================================
 //  Sollgeschwindigkeit fuer den Speed-Regler, Einheit: Impulse/Sekunde
 //  (= Umdrehungen/s, siehe SPEED_PULSE_SCALE). Klein anfangen, dann erhoehen.
-#define TARGET_SPEED         140
+#define TARGET_SPEED         150
 //  Kurven-Verlangsamung: wie stark in Kurven gebremst wird (0..1).
 //  0   = nie bremsen (immer TARGET_SPEED)
 //  0.5 = bei vollem Lenkeinschlag nur noch halbe Geschwindigkeit
